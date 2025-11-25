@@ -18,10 +18,12 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private int mesa;
 
-    public Pedido() {
+    public Pedido(int mesa) {
         this.data = LocalDate.now();
         itens = new ArrayList<>();
+        this.mesa = mesa;
     }
 
     public void adicionarItem(Item item, int quantidade) {
@@ -42,5 +44,9 @@ public class Pedido {
 
     public Long getId() {
         return id;
+    }
+
+    public int getMesa() {
+        return mesa;
     }
 }
