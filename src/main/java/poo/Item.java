@@ -5,38 +5,38 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
-import jakarta.persistence.Column;
 
 @Entity
 public class Item {
     private String name;
     private String descricao;
     private double preco;
+    @Enumerated(EnumType.STRING)
     private ItemCategoria categoria;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Item(String name, String descricao, double preco, ItemCategoria categoria,Long id){
+    public Item(){}
+
+    public Item(String name, String descricao, double preco, ItemCategoria categoria){
         this.name = name;
         this.descricao= descricao;
         this.preco = preco;
         this.categoria = categoria;
-        this.id = id;
     }
-    public String getName(){
-        return this.name;
-    }
+
+    public String getName() {return name;}
     public String getDescricao(){
         return this.descricao;
     }
     public double getPreco(){
         return this.preco;
     }
-    public ItemCategoria getItemCategoria(){
+    public ItemCategoria getCategoria(){
         return this.categoria;
     }
-    public double getId(){
+    public Long getId(){
         return this.id;
     }
     public void setName(String name){
@@ -48,7 +48,7 @@ public class Item {
     public void setPreco(double preco){
         this.preco = preco;
     }
-    public void setItemCategoria(ItemCategoria categoria){
+    public void setCategoria(ItemCategoria categoria){
         this.categoria = categoria;
     }
     public void setId(Long id){
