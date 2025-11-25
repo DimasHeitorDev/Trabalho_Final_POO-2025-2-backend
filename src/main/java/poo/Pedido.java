@@ -1,12 +1,23 @@
 package poo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@Entity
 public class Pedido {
     ArrayList<ItemPedido> itens;
     double precoTotal;
     LocalDate data;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     public Pedido() {
         this.data = LocalDate.now();
@@ -17,31 +28,19 @@ public class Pedido {
         itens.add(new ItemPedido(item, quantidade));
     }
 
-    private class ItemPedido {
-        private Item item;
-        private int quantidade;
+    public ArrayList<ItemPedido> getItens() {
+        return this.itens;
+    }
 
-        public ItemPedido(Item item, int quantidade) {
-            this.item = item;
-            this.quantidade = quantidade;
-        }
+    public double getPrecoTotal() {
+        return this.precoTotal;
+    }
 
-        public int getQuantidade() {
-            return this.quantidade;
-        }
+    public LocalDate getData() {
+        return this.data;
+    }
 
-        public void setQuantidade(int quantiade) {
-            this.quantidade = quantidade;
-        }
-
-        public void add(int quantidade) {
-            if (getQuantidade() + quantidade >= 0) {
-                setQuantidade(getQuantidade() + quantidade);
-            }
-        }
-
-        public Item getItem() {
-            return this.item;
-        }
+    public Long getId() {
+        return id;
     }
 }

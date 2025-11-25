@@ -2,6 +2,6 @@ package poo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ItemRepository extends JpaRepository<Item, Long>{
+public interface PedidoRepository extends JpaRepository<Pedido, Long>{
 
 }
