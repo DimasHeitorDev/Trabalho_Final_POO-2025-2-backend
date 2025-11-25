@@ -1,16 +1,18 @@
 package poo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.ManyToOne;
 
-@Entity
+@Embeddable
 public class ItemPedido {
+
+    @ManyToOne(optional = false)
     private Item item;
     private int quantidade;
+
+    public ItemPedido() {
+
+    }
 
     public ItemPedido(Item item, int quantidade) {
         this.item = item;
@@ -21,7 +23,7 @@ public class ItemPedido {
         return this.quantidade;
     }
 
-    public void setQuantidade(int quantiade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 

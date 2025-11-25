@@ -1,10 +1,7 @@
 package poo;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -32,5 +29,10 @@ public class PedidoController {
         }
 
         return pedidoRepository.save(pedido);
+    }
+
+    @GetMapping
+    public List<Pedido> listar() {
+        return pedidoRepository.findAll();
     }
 }

@@ -1,28 +1,34 @@
 package poo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Pedido {
-    ArrayList<ItemPedido> itens;
+    @ElementCollection
+    @CollectionTable(name = "pedido_itens")
+    private List<ItemPedido> itens = new ArrayList<>();
+
     double precoTotal;
     LocalDate data;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private int mesa;
+
+    public Pedido() {
+        this.itens = new ArrayList<>();
+        this.data = LocalDate.now();
+    }
 
     public Pedido(int mesa) {
         this.data = LocalDate.now();
-        itens = new ArrayList<>();
+        this.itens = new ArrayList<>();
         this.mesa = mesa;
     }
 
@@ -30,7 +36,7 @@ public class Pedido {
         itens.add(new ItemPedido(item, quantidade));
     }
 
-    public ArrayList<ItemPedido> getItens() {
+    public List<ItemPedido> getItens() {
         return this.itens;
     }
 
