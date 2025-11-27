@@ -13,7 +13,9 @@ COPY src src
 
 RUN ./mvnw clean package -DskipTests
 
-FROM amazoncorretto:25
+
+# Runtime
+FROM eclipse-temurin:25-jre
 
 WORKDIR /app
 
@@ -21,4 +23,4 @@ COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT java -Dserver.port=$PORT -jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
