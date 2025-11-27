@@ -11,8 +11,8 @@ public class PedidoDTO {
 
     }
 
-    public PedidoDTO(int mesa, Map<Long,Integer> itens){
-        this.mesa= mesa;
+    public PedidoDTO(int mesa, Map<Long, Integer> itens) {
+        this.mesa = mesa;
         this.itens = itens;
     }
 
@@ -22,5 +22,13 @@ public class PedidoDTO {
 
     public Map<Long, Integer> getItens() {
         return itens;
+    }
+
+    public void setMesa(int mesa) {
+        this.mesa = mesa;
+    }
+
+    public void setItens(Map<Long, Integer> itens) {
+        this.itens = itens;
     }
 }

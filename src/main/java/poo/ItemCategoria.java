@@ -1,5 +1,5 @@
 package poo;
 
 public enum ItemCategoria {
-    BEBIDAS, PIZZAS, SOBREMESAS;
+    BEBIDAS, PIZZAS, SOBREMESAS, COMIDA, LANCHES;
 }
