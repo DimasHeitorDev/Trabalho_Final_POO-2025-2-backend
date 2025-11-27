@@ -1,12 +1,16 @@
-FROM amazoncorretto:25 AS build
+FROM eclipse-temurin:25-jdk AS build
 
 WORKDIR /app
 
-COPY . .
-
-RUN yum install -y tar gzip
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
 
 RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline
+
+COPY src src
+
 RUN ./mvnw clean package -DskipTests
 
 FROM amazoncorretto:25
@@ -17,4 +21,4 @@ COPY --from=build /app/target/*.jar app.jar
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT java -Dserver.port=$PORT -jar app.jar
