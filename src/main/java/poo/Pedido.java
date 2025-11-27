@@ -8,17 +8,16 @@ import java.util.List;
 
 @Entity
 public class Pedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @ElementCollection
     @CollectionTable(name = "pedido_itens")
     private List<ItemPedido> itens = new ArrayList<>();
 
     double precoTotal;
     LocalDate data;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private int mesa;
 
     public Pedido() {
