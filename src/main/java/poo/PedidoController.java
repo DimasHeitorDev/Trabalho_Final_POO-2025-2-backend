@@ -35,4 +35,9 @@ public class PedidoController {
     public List<Pedido> listar() {
         return pedidoRepository.findAll();
     }
+
+    @DeleteMapping
+    public void deletarPedido() {
+
+    }
 }
