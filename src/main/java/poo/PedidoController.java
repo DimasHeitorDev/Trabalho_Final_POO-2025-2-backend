@@ -37,7 +37,7 @@ public class PedidoController {
     }
 
     @DeleteMapping
-    public void deletarPedido() {
-
+    public void deletarPedido(Long id) {
+        pedidoRepository.deleteById(id);
     }
 }
