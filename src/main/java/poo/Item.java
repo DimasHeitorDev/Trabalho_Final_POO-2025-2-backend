@@ -17,42 +17,64 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String imageUrl;
 
-    public Item(){}
-
-    public Item(String name, String descricao, double preco, ItemCategoria categoria){
-        this.name = name;
-        this.descricao= descricao;
-        this.preco = preco;
-        this.categoria = categoria;
+    public Item() {
     }
 
-    public String getName() {return name;}
-    public String getDescricao(){
+    public Item(String name, String descricao, double preco, ItemCategoria categoria, String imageUrl) {
+        this.name = name;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.categoria = categoria;
+        this.imageUrl = imageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescricao() {
         return this.descricao;
     }
-    public double getPreco(){
+
+    public double getPreco() {
         return this.preco;
     }
-    public ItemCategoria getCategoria(){
+
+    public ItemCategoria getCategoria() {
         return this.categoria;
     }
-    public Long getId(){
+
+    public Long getId() {
         return this.id;
     }
-    public void setName(String name){
+
+    public void setName(String name) {
         this.name = name;
     }
-    public void setDescricao(String descricao){
+
+    public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    public void setPreco(double preco){
+
+    public void setPreco(double preco) {
         this.preco = preco;
     }
-    public void setCategoria(ItemCategoria categoria){
+
+    public void setCategoria(ItemCategoria categoria) {
         this.categoria = categoria;
     }
-    public void setId(Long id){
+
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
