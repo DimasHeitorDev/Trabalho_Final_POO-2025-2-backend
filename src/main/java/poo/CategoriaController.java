@@ -22,4 +22,9 @@ public class CategoriaController {
     public List<Categoria> criarVarias(@RequestBody List<Categoria> categorias) {
         return repository.saveAll(categorias);
     }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable Long id) {
+        repository.deleteById(id);
+    }
 }
