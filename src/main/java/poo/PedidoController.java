@@ -19,6 +19,9 @@ public class PedidoController {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
+    @Autowired
+    private VendasDiaRepository vendasDiaRepository;
+
     public PedidoController() {
 
     }
@@ -48,5 +51,22 @@ public class PedidoController {
     public void deletarPedido(@PathVariable Long id) {
         pedidoRepository.deleteById(id);
         messagingTemplate.convertAndSend("/topic/pedidos-removidos", id);
+    }
+
+    @PatchMapping("/{id}/status")
+    public Pedido atualizarStatus(@PathVariable Long id, @RequestParam StatusPedido status) {
+        Pedido pedido = pedidoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+        pedido.setStatus(status);
+
+        if (status == StatusPedido.CONCLUIDO) {
+            java.time.LocalDate hoje = java.time.LocalDate.now();
+            VendasDia vendasDia = vendasDiaRepository.findByData(hoje)
+                    .orElse(new VendasDia(hoje, 0.0));
+            vendasDia.adicionarVenda(pedido.getPrecoTotal());
+            vendasDiaRepository.save(vendasDia);
+        }
+
+        return pedidoRepository.save(pedido);
     }
 }

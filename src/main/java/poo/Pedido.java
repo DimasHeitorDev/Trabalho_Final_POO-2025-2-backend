@@ -20,19 +20,25 @@ public class Pedido {
     LocalDate data;
     private int mesa;
 
+    @Enumerated(EnumType.STRING)
+    private StatusPedido status;
+
     public Pedido() {
         this.itens = new ArrayList<>();
         this.data = LocalDate.now();
+        this.status = StatusPedido.PENDENTE;
     }
 
     public Pedido(int mesa) {
         this.data = LocalDate.now();
         this.itens = new ArrayList<>();
         this.mesa = mesa;
+        this.status = StatusPedido.PENDENTE;
     }
 
     public void adicionarItem(Item item, int quantidade) {
         itens.add(new ItemPedido(item, quantidade));
+        this.precoTotal += item.getPreco() * quantidade;
     }
 
     public List<ItemPedido> getItens() {
@@ -53,5 +59,13 @@ public class Pedido {
 
     public int getMesa() {
         return mesa;
+    }
+
+    public StatusPedido getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusPedido status) {
+        this.status = status;
     }
 }
