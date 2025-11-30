@@ -4,16 +4,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.EnumType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Item {
     private String name;
     private String descricao;
     private double preco;
-    @Enumerated(EnumType.STRING)
-    private ItemCategoria categoria;
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,7 +23,7 @@ public class Item {
     public Item() {
     }
 
-    public Item(String name, String descricao, double preco, ItemCategoria categoria, String imageUrl) {
+    public Item(String name, String descricao, double preco, Categoria categoria, String imageUrl) {
         this.name = name;
         this.descricao = descricao;
         this.preco = preco;
@@ -42,7 +43,7 @@ public class Item {
         return this.preco;
     }
 
-    public ItemCategoria getCategoria() {
+    public Categoria getCategoria() {
         return this.categoria;
     }
 
@@ -62,7 +63,7 @@ public class Item {
         this.preco = preco;
     }
 
-    public void setCategoria(ItemCategoria categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
