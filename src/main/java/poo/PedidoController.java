@@ -1,6 +1,7 @@
 package poo;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,9 @@ public class PedidoController {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
+    private SimpMessagingTemplate messagingTemplate;
+
     public PedidoController() {
 
     }
@@ -28,7 +32,10 @@ public class PedidoController {
             pedido.adicionarItem(item, entry.getValue());
         }
 
-        return pedidoRepository.save(pedido);
+        Pedido pedidoSalvo = pedidoRepository.save(pedido);
+        messagingTemplate.convertAndSend("/topic/novos-pedidos", pedido);
+
+        return pedidoSalvo;
     }
 
     @GetMapping
@@ -37,7 +44,7 @@ public class PedidoController {
     }
 
     @DeleteMapping
-    public void deletarPedido(Long id) {
+    public void deletarPedido(@PathVariable Long id) {
         pedidoRepository.deleteById(id);
     }
 }
