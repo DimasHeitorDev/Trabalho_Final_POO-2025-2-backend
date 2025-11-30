@@ -28,7 +28,8 @@ public class PedidoController {
         Pedido pedido = new Pedido(dto.getMesa());
 
         for (Map.Entry<Long, Integer> entry : dto.getItens().entrySet()) {
-            Item item = itemRepository.findById(entry.getKey()).orElseThrow(() -> new RuntimeException("Item não encontrado: " + entry.getKey()));
+            Item item = itemRepository.findById(entry.getKey())
+                    .orElseThrow(() -> new RuntimeException("Item não encontrado: " + entry.getKey()));
             pedido.adicionarItem(item, entry.getValue());
         }
 
@@ -43,7 +44,7 @@ public class PedidoController {
         return pedidoRepository.findAll();
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void deletarPedido(@PathVariable Long id) {
         pedidoRepository.deleteById(id);
     }
