@@ -47,5 +47,6 @@ public class PedidoController {
     @DeleteMapping("/{id}")
     public void deletarPedido(@PathVariable Long id) {
         pedidoRepository.deleteById(id);
+        messagingTemplate.convertAndSend("/topic/pedidos-removidos", id);
     }
 }

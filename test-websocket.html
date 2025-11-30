@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+    <h2>WebSocket Notification Test</h2>
+    <div id="messages"></div>
+
+    <script>
+        var socket = new SockJS('http://localhost:8080/ws-pedidos');
+        var stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            document.getElementById("messages").innerHTML += "<p>Connected to WebSocket</p>";
+
+            stompClient.subscribe('/topic/pedidos-removidos', function (message) {
+                console.log("Pedido removido: " + message.body);
+                document.getElementById("messages").innerHTML += "<p>Pedido removido ID: " + message.body + "</p>";
+            });
+
+            stompClient.subscribe('/topic/itens-removidos', function (message) {
+                console.log("Item removido: " + message.body);
+                document.getElementById("messages").innerHTML += "<p>Item removido ID: " + message.body + "</p>";
+            });
+        });
+    </script>
+</body>
+</html>

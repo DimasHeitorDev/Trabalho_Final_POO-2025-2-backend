@@ -1,6 +1,7 @@
 package poo;
 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import java.util.List;
 
 @RestController
@@ -8,10 +9,13 @@ import java.util.List;
 public class ItemController {
     private final ItemRepository repository;
     private final poo.services.ImagemService imagemService;
+    private final SimpMessagingTemplate messagingTemplate;
 
-    public ItemController(ItemRepository repository, poo.services.ImagemService imagemService) {
+    public ItemController(ItemRepository repository, poo.services.ImagemService imagemService,
+            SimpMessagingTemplate messagingTemplate) {
         this.repository = repository;
         this.imagemService = imagemService;
+        this.messagingTemplate = messagingTemplate;
     }
 
     @GetMapping
@@ -32,6 +36,7 @@ public class ItemController {
     @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
         repository.deleteById(id);
+        messagingTemplate.convertAndSend("/topic/itens-removidos", id);
     }
 
     @PostMapping("/upload")
