@@ -2,7 +2,7 @@ package poo;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public class Pedido {
     private List<ItemPedido> itens = new ArrayList<>();
 
     double precoTotal;
-    LocalDate data;
+    LocalDateTime data;
     private int mesa;
 
     @Enumerated(EnumType.STRING)
@@ -25,12 +25,12 @@ public class Pedido {
 
     public Pedido() {
         this.itens = new ArrayList<>();
-        this.data = LocalDate.now();
+        this.data = LocalDateTime.now();
         this.status = StatusPedido.PENDENTE;
     }
 
     public Pedido(int mesa) {
-        this.data = LocalDate.now();
+        this.data = LocalDateTime.now();
         this.itens = new ArrayList<>();
         this.mesa = mesa;
         this.status = StatusPedido.PENDENTE;
@@ -49,7 +49,7 @@ public class Pedido {
         return this.precoTotal;
     }
 
-    public LocalDate getData() {
+    public LocalDateTime getData() {
         return this.data;
     }
 
